@@ -3,11 +3,18 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Logout</ion-title>
+    <ion-title>User Information</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  
+  <ion-list>
+  	<ion-list-header>
+  		Your Information
+  	</ion-list-header>
+    <ion-item *ngFor="let item of items">
+    	{{item}}
+    </ion-item>
+  </ion-list>
   <button ion-button block color="danger" (click)="logoutUser()">Logout</button>
 </ion-content>

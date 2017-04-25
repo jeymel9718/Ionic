@@ -39,7 +39,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: TabsPage },
       { title: 'List', component: ListPage },
-      { title: 'Logout', component: LogoutPage}
+      { title: 'Information', component: LogoutPage}
     ];
 
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
