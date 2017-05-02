@@ -25,12 +25,13 @@ export class LogoutPage {
       this.items.push('Name: '+this.user.displayName);
       this.items.push('Email: '+this.user.email);
     }
+    console.log(authProvider.getallUsers());
 	}
 
 	logoutUser(): void {
   		let alert = this.alertCtrl.create({
-    	title: 'Confirm purchase',
-    	message: 'Do you want to logout?',
+    	title: 'Signout',
+    	message: 'Do you want to signout?',
     	buttons: [
       	{
         	text: 'Cancel',

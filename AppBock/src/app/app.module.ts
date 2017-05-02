@@ -18,6 +18,7 @@ import { LogoutPage } from '../pages/logout/logout';
 import { ImageHolder } from '../pages/img-custom';
 import { MomentPipe } from '../pipes/moment/moment.pipe';
 import { MessagesPage } from '../pages/chat/messages/messages';
+import { UsersPage } from '../pages/chat/users/users';
 
 
 // Providers
@@ -42,7 +43,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SignupPage,
     ImageHolder,
     MomentPipe,
-    MessagesPage
+    MessagesPage,
+    UsersPage
     
   ],
   imports: [
@@ -61,7 +63,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LoginPage,
     ResetPasswordPage,
     SignupPage,
-    MessagesPage
+    MessagesPage,
+    UsersPage
     
   ],
   providers: [

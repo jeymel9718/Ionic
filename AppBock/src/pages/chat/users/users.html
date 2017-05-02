@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Users</ion-title>
+        <ion-buttons end>
+            <ion-spinner color="light" *ngIf="!(users)"></ion-spinner>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <span *ngFor="let user of users">
+        <a ion-item (click)="openChat(user)">
+             <ion-avatar item-left>
+                <img *ngIf="!user.picture" src="assets/img/avatar/avatar-placeholder.png">
+                <img *ngIf="user.picture" src="assets/img/avatar/avatar-placeholder.png">
+             </ion-avatar>
+             <h2>{{user.name}}</h2>
+        </a>
+      </span>
+    </ion-list>
+</ion-content>

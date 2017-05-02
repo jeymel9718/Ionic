@@ -76,4 +76,20 @@ export class MessageService {
 
     return firebase.database().ref().update(updates);
   }
+
+  getAllUsers() {
+    var ref = firebase.database().ref('users');
+    var query = ref.orderByChild('name');
+    var data = [];
+    query.on('value',
+      (snapshot)=>{
+        snapshot.forEach(function (childSnapshot): any {
+          var arr = childSnapshot.val();
+          arr['id'] = childSnapshot.key;
+          data.push(arr);
+        });
+      });
+
+    return data;
+  }
 }

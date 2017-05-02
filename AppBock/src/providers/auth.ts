@@ -3,6 +3,8 @@ import firebase from 'firebase';
 
 @Injectable()
 export class AuthProvider {
+  provider = new firebase.auth.FacebookAuthProvider();
+  
   constructor() {}
 
   loginUser(email: string, password: string): firebase.Promise<any> {
@@ -10,15 +12,25 @@ export class AuthProvider {
   }
 
   facebooklogin(): firebase.Promise<any>{
-    var provider = new firebase.auth.FacebookAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
+    
+    return firebase.auth().signInWithPopup(this.provider)
+    .then(result =>{
+      firebase.database().ref('/users').child(result.user.uid)
+      .set({email: result.user.email,
+        name:result.user.displayName
+      });
+    });
+
+    
   }
 
-  signupUser(email: string, password: string): firebase.Promise<any> {
+  signupUser(email: string, password: string, name: string): firebase.Promise<any> {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then( newUser => {
-        firebase.database().ref('/userProfile').child(newUser.uid)
-        .set({ email: email });
+        firebase.database().ref('/users').child(newUser.uid)
+        .set({ email: email,
+          name: name
+         });
   	});
   }
 
@@ -36,5 +48,9 @@ export class AuthProvider {
   updateUserData(data:any): firebase.Promise<void>{
     var user=firebase.auth().currentUser;
     return user.updateProfile(data)
+  }
+
+  getallUsers(){
+    return firebase.database().ref('users');
   }
 }

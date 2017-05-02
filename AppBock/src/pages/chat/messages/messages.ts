@@ -2,6 +2,7 @@ import { MessageService } from '../../../providers/message-service';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { Content, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { AuthProvider } from '../../../providers/auth';
 
 @Component({
   selector: 'page-messages',
@@ -14,11 +15,7 @@ export class MessagesPage {
     username: 'Venkman',
   }
 
-  user = {
-    id: 'peu',
-    pic: 'assets/img/avatar/avatar-placeholder.png',
-    name: 'User',
-  };
+  user:any;
 
   doneLoading = false;
 
@@ -31,13 +28,20 @@ export class MessagesPage {
   chatId: any;
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,
     public loadingCtrl: LoadingController, public navParams: NavParams,
-    public messageService: MessageService) {
+    public messageService: MessageService, public authProvier: AuthProvider) {
     this.chatId = this.navParams.get('chatId');
     this.messageForm = formBuilder.group({
       message: new FormControl('')
     });
     this.chatBox = "";
     this.loadMessages();
+    let puser=authProvier.getUserData();
+    this.user={
+      id:puser.uid,
+      pic: 'assets/img/avatar/avatar-placeholder.png',
+      name:puser.displayName,
+
+    };
 
   }
 

@@ -2,6 +2,7 @@ import { MessageService } from '../../providers/message-service';
 import { MessagesPage } from './messages/messages';
 import { Component } from '@angular/core';
 import { NavController, NavParams, App } from 'ionic-angular';
+import { UsersPage } from './users/users';
 
 @Component({
   templateUrl: 'chats.html',
@@ -33,13 +34,14 @@ export class ChatsPage {
 
   newChat() {
 
-    let chatData = {
+    /*let chatData = {
       lastMessage: 'Hi..',
       timestamp: Date.now(),
       title: 'New Chat'
     }
 
-    this.messageService.createChat(chatData);
+    this.messageService.createChat(chatData);*/
+    this.navCtrl.push(UsersPage);
   }
 
 }
