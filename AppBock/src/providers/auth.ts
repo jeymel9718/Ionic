@@ -49,8 +49,4 @@ export class AuthProvider {
     var user=firebase.auth().currentUser;
     return user.updateProfile(data)
   }
-
-  getallUsers(){
-    return firebase.database().ref('users');
-  }
 }

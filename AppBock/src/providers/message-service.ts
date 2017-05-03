@@ -32,8 +32,10 @@ export class MessageService {
 
         snapshot.forEach(function (childSnapshot): any {
           var data = childSnapshot.val();
-          data['id'] = childSnapshot.key;
-          arr.push(data);
+          if(data.from==currentUser.uid || data.to==currentUser.uid){
+            data['id'] = childSnapshot.key;
+            arr.push(data);
+          }
         });
         observer.next(arr);
       },
@@ -81,12 +83,15 @@ export class MessageService {
     var ref = firebase.database().ref('users');
     var query = ref.orderByChild('name');
     var data = [];
+    var id=firebase.auth().currentUser.uid;
     query.on('value',
       (snapshot)=>{
         snapshot.forEach(function (childSnapshot): any {
           var arr = childSnapshot.val();
-          arr['id'] = childSnapshot.key;
-          data.push(arr);
+          if(childSnapshot.key!=id){
+            arr['id'] = childSnapshot.key;
+            data.push(arr);
+          }
         });
       });
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams  } from 'ionic-angular';
 import { MessageService } from '../../../providers/message-service';
 import { ChatsPage } from '../chats';
 
@@ -9,9 +9,10 @@ import { ChatsPage } from '../chats';
 
 export class UsersPage{
 	users:any;
+	currentUser:any;
 	constructor(public navCtrl: NavController
-		,public messageService: MessageService) {
-		
+		,public messageService: MessageService, public navParams: NavParams) {
+		this.currentUser=this.navParams.get('currentUser');	
 	}
 
 	ngOnInit() {
@@ -22,7 +23,9 @@ export class UsersPage{
     	let chatData = {
 		  lastMessage: 'Hi..',
 		  timestamp: Date.now(),
-		  title: user.name
+		  title: {from:this.currentUser.displayName ,to:user.name},
+		  to: user.id,
+		  from: this.currentUser.uid
 		}
 		this.messageService.createChat(chatData);
 		this.navCtrl.push(ChatsPage);

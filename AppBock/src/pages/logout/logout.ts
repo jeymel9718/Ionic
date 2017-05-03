@@ -25,7 +25,7 @@ export class LogoutPage {
       this.items.push('Name: '+this.user.displayName);
       this.items.push('Email: '+this.user.email);
     }
-    console.log(authProvider.getallUsers());
+    
 	}
 
 	logoutUser(): void {

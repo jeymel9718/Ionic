@@ -3,6 +3,7 @@ import { MessagesPage } from './messages/messages';
 import { Component } from '@angular/core';
 import { NavController, NavParams, App } from 'ionic-angular';
 import { UsersPage } from './users/users';
+import { AuthProvider } from '../../providers/auth';
 
 @Component({
   templateUrl: 'chats.html',
@@ -13,15 +14,16 @@ export class ChatsPage {
   chats = [];
 
   constructor(public navCtrl: NavController, public app: App,
-    public messageService: MessageService, public navParams: NavParams) {
-    this.userProfile = navParams.get('user');
+    public messageService: MessageService, public navParams: NavParams, 
+    public authProvider: AuthProvider) {
+    this.userProfile = authProvider.getUserData();
   }
 
 
   ngOnInit() {
     this.messageService.retrieveChats()
       .subscribe((data: Array<any>) => {
-        console.log(data);
+        //console.log(data);
         this.chats = data;
       }, (err) => {
         alert('there was an error: ' + err);
@@ -41,7 +43,7 @@ export class ChatsPage {
     }
 
     this.messageService.createChat(chatData);*/
-    this.navCtrl.push(UsersPage);
+    this.navCtrl.push(UsersPage,{currentUser:this.userProfile});
   }
 
 }

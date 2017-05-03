@@ -26,7 +26,8 @@
       <ion-avatar item-left>
         <img-holder [src]="chat.imageUrl"></img-holder>
       </ion-avatar>
-      <h2>{{chat.title}}</h2>
+      <h2 *ngIf="chat.from==userProfile.uid">{{chat.title.to}}</h2>
+      <h2 *ngIf="chat.to==userProfile.uid">{{chat.title.from}}</h2>
       <p>{{chat.lastMessage}}</p>
       <ion-note item-right>{{chat.timestamp | moment:"hh:mm a" | lowercase}}</ion-note>
     </ion-item>
