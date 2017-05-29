@@ -12,6 +12,17 @@
   <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
     <ion-item>
+      <ion-label stacked>Full name</ion-label>
+      <ion-input formControlName="name" type="name" placeholder="Your full name" 
+        [class.invalid]="!signupForm.controls.username.valid && signupForm.controls.name.dirty">
+      </ion-input>
+    </ion-item>
+    <ion-item class="error-message" 
+      *ngIf="!signupForm.controls.username.valid  && signupForm.controls.name.dirty">
+      <p>Please enter a valid name.</p>
+    </ion-item>
+
+    <ion-item>
       <ion-label stacked>Username</ion-label>
       <ion-input formControlName="username" type="username" placeholder="Your username" 
         [class.invalid]="!signupForm.controls.username.valid && signupForm.controls.username.dirty">

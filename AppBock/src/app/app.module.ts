@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Facebook } from '@ionic-native/facebook'
+import { HttpModule, Http } from '@angular/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 
@@ -50,6 +54,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -72,7 +81,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     AuthProvider,
     MessageService,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 export class AppModule {}

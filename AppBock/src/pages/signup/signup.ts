@@ -24,7 +24,8 @@ export class SignupPage {
       this.signupForm = formBuilder.group({
         email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
         password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
-        username: ['', Validators.compose([Validators.minLength(2),Validators.required])]
+        username: ['', Validators.compose([Validators.minLength(2),Validators.required])],
+        name: ['', Validators.compose([Validators.minLength(6),Validators.required])]
       });
   }
 
@@ -33,11 +34,12 @@ export class SignupPage {
       console.log(this.signupForm.value);
     } else {
       this.authProvider.signupUser(this.signupForm.value.email, 
-        this.signupForm.value.password,this.signupForm.value.username)
+        this.signupForm.value.password,this.signupForm.value.name,this.signupForm.value.username)
       .then(() => {
         this.loading.dismiss().then( () => {
-          this.authProvider.updateUserData({displayName: this.signupForm.value.username}).then(()=>{
+          this.authProvider.updateUserData({name: this.signupForm.value.name}).then(()=>{
             this.navCtrl.setRoot(TabsPage);
+            this.authProvider.putuser();
           },(error)=>{
             let alert = this.alertCtrl.create({
             message: error.message,

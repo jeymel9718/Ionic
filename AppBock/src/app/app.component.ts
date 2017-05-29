@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { LogoutPage } from '../pages/logout/logout';
+import {AuthProvider} from '../providers/auth';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+    authProvider:AuthProvider) {
     this.initializeApp();
     //initialize zone
     this.zone = new NgZone({});
@@ -48,7 +50,8 @@ export class MyApp {
       if (!user) {
         this.rootPage = LoginPage;
         unsubscribe();
-      } else { 
+      } else {
+        authProvider.putuser(); 
         this.rootPage = TabsPage;
         unsubscribe();
       }

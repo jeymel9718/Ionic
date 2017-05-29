@@ -37,9 +37,9 @@ export class MessagesPage {
     this.loadMessages();
     let puser=authProvier.getUserData();
     this.user={
-      id:puser.uid,
+      id:puser.id,
       pic: 'assets/img/avatar/avatar-placeholder.png',
-      name:puser.displayName,
+      name:puser.username,
 
     };
 

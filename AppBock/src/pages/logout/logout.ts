@@ -6,6 +6,7 @@ import {
 
 import { AuthProvider } from '../../providers/auth';
 import { LoginPage } from '../login/login';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'page-logout',
@@ -14,17 +15,14 @@ import { LoginPage } from '../login/login';
 
 export class LogoutPage {
 	user: any;
-  //Array with user information
-  items: Array<string>;
+  public informationForm:FormGroup;
 
 	constructor(public navCtrl: NavController, public authProvider: AuthProvider,
-		private alertCtrl: AlertController) {
+		private alertCtrl: AlertController,public formBuilder: FormBuilder) {
     this.user=this.authProvider.getUserData();
-    this.items=[];
-    if(this.user!=null){
-      this.items.push('Name: '+this.user.displayName);
-      this.items.push('Email: '+this.user.email);
-    }
+    this.informationForm=this.formBuilder.group({name:[this.user.name],username:[this.user.username]
+      ,email:[this.user.email]});
+    
     
 	}
 
@@ -52,4 +50,8 @@ export class LogoutPage {
   		});
   		alert.present();
   	}
+  Updateuserinfo(){
+    var updates={name:this.informationForm.value.name,username:this.informationForm.value.email};
+    this.authProvider.updateUserData(updates);
+  }
 }

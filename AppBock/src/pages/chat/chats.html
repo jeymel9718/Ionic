@@ -9,25 +9,14 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="chats">
-  <ion-card *ngIf="userProfile">
-    <img [src]="userProfile.photoURL" />
-    <ion-card-content>
-      <ion-card-title>
-        {{ userProfile.displayName }}
-      </ion-card-title>
-      <p>
-        The UID for this new user is {{userProfile.uid}} and the email is {{userProfile.email}}
-      </p>
-    </ion-card-content>
-  </ion-card>
   <ion-list>
     <ion-list-header>Today</ion-list-header>
     <ion-item *ngFor="let chat of chats" (click)="viewMessages(chat)">
       <ion-avatar item-left>
         <img-holder [src]="chat.imageUrl"></img-holder>
       </ion-avatar>
-      <h2 *ngIf="chat.from==userProfile.uid">{{chat.title.to}}</h2>
-      <h2 *ngIf="chat.to==userProfile.uid">{{chat.title.from}}</h2>
+      <h2 *ngIf="chat.from==userProfile.id">{{chat.title.to}}</h2>
+      <h2 *ngIf="chat.to==userProfile.id">{{chat.title.from}}</h2>
       <p>{{chat.lastMessage}}</p>
       <ion-note item-right>{{chat.timestamp | moment:"hh:mm a" | lowercase}}</ion-note>
     </ion-item>

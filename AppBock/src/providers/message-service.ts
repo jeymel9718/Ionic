@@ -81,7 +81,7 @@ export class MessageService {
 
   getAllUsers() {
     var ref = firebase.database().ref('users');
-    var query = ref.orderByChild('name');
+    var query = ref.orderByChild('username');
     var data = [];
     var id=firebase.auth().currentUser.uid;
     query.on('value',

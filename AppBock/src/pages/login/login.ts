@@ -38,6 +38,7 @@ export class LoginPage {
         	this.loginForm.value.password).then( authData => {
       		this.loading.dismiss().then( () => {
         	this.navCtrl.setRoot(TabsPage);
+          this.authProvider.putuser();
       		});
     	}, error => {
       		this.loading.dismiss().then( () => {
@@ -63,14 +64,14 @@ export class LoginPage {
 	goToResetPassword(): void { this.navCtrl.push(ResetPasswordPage); }
 
   loginFacebook(): void{ 
-    this.authProvider.facebooklogin().then( authData => {
+    this.authProvider.facebooklogin().then( success => {
           this.loading.dismiss().then( () => {
           this.navCtrl.setRoot(TabsPage);
           });
-    }, error => {
+    }).catch((error) => {
           this.loading.dismiss().then( () => {
             let alert = this.alertCtrl.create({
-                message: error.message,
+                message: error,
                 buttons: [
                 {
                     text: "Ok",
@@ -81,8 +82,8 @@ export class LoginPage {
             alert.present();
           });
       });
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
 
   }	
 
